@@ -1,16 +1,15 @@
 /**
  * Backend gratuito da Agenda de Eventos de Maués (Google Apps Script).
- * - doPost: recebe o cadastro do formulário da página e grava na aba "Cadastros" (status "pendente").
+ * - doPost: recebe o cadastro do formulário da página e grava na primeira aba da planilha (status "pendente").
  * - doGet: devolve em JSON apenas as linhas com status "aprovado", SEM o contato do organizador.
  * Moderação: na planilha, troque o status de "pendente" para "aprovado".
  */
-const ABA = 'Cadastros';
 const COLUNAS = ['data_envio','status','nome','cat','local','area','data','sem','hora','preco','org','desc','contato','origem'];
 
 function aba_() {
   const ss = SpreadsheetApp.getActive();
-  let sh = ss.getSheetByName(ABA);
-  if (!sh) { sh = ss.insertSheet(ABA); sh.appendRow(COLUNAS); }
+  const sh = ss.getSheets()[0];
+  if (sh.getLastRow() === 0) sh.appendRow(COLUNAS);
   return sh;
 }
 

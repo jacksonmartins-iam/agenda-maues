@@ -10,7 +10,7 @@ Agenda gratuita com os eventos de Maués (AM): festas, esportes, eventos religio
 Settings → Pages → Branch `main` / pasta `/ (root)`.
 
 ## Ativar o formulário
-1. Crie uma planilha no Google Sheets → Extensões → Apps Script → cole `apps-script/Code.gs`.
+1. Abra a planilha de cadastros (primeira aba, com cabeçalho) → Extensões → Apps Script → cole `apps-script/Code.gs`.
 2. Implantar → Nova implantação → Aplicativo da Web → Executar como: eu; Quem tem acesso: qualquer pessoa.
 3. Copie a URL gerada e coloque em `CONFIG.FORM_ENDPOINT` e `CONFIG.EVENTS_URL` no `index.html`.
 4. Para aprovar um cadastro, mude `pendente` para `aprovado` na planilha.
