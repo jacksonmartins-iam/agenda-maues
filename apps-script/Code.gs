@@ -4,10 +4,12 @@
  * - doGet: devolve em JSON apenas as linhas com status "aprovado", SEM o contato do organizador.
  * Moderação: na planilha, troque o status de "pendente" para "aprovado".
  */
+/* ID da planilha (trecho da URL entre /d/ e /edit). Vazio = usa a planilha à qual o script está ligado. */
+const PLANILHA_ID = '';
 const COLUNAS = ['data_envio','status','nome','cat','local','area','data','sem','hora','preco','org','desc','contato','origem'];
 
 function aba_() {
-  const ss = SpreadsheetApp.getActive();
+  const ss = PLANILHA_ID ? SpreadsheetApp.openById(PLANILHA_ID) : SpreadsheetApp.getActive();
   const sh = ss.getSheets()[0];
   if (sh.getLastRow() === 0) sh.appendRow(COLUNAS);
   return sh;
