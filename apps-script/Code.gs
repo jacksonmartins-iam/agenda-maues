@@ -15,31 +15,48 @@ function aba_() {
   return sh;
 }
 
+function ehData_(v) {
+  return Object.prototype.toString.call(v) === '[object Date]';
+}
+
 function doPost(e) {
   const d = JSON.parse(e.postData.contents);
   const t = (v) => String(v == null ? '' : v).slice(0, 500);
-  aba_().appendRow([
+  const sh = aba_();
+  sh.appendRow([
     new Date(), 'pendente', t(d.nome), t(d.cat), t(d.local), t(d.area),
     t(d.data), t(d.sem), t(d.hora), t(d.preco), t(d.org), t(d.desc), t(d.contato), t(d.origem)
   ]);
+  // Mantém data (col. 7) e hora (col. 9) como texto, para o Sheets não converter em data/hora.
+  const linha = sh.getLastRow();
+  sh.getRange(linha, 7).setNumberFormat('@').setValue(t(d.data));
+  sh.getRange(linha, 9).setNumberFormat('@').setValue(t(d.hora));
   return ContentService.createTextOutput('ok');
 }
 
 function doGet() {
   const sh = aba_();
-  const rows = sh.getDataRange().getValues();
+  const range = sh.getDataRange();
+  const rows = range.getValues();
+  const shown = range.getDisplayValues();
   const head = rows.shift();
+  shown.shift();
   const tz = 'America/Manaus';
-  const out = rows
-    .map(r => Object.fromEntries(head.map((h, i) => [h, r[i]])))
-    .filter(o => String(o.status).toLowerCase() === 'aprovado')
-    .map((o, i) => ({
-      id: 'p' + i,
+  const out = [];
+  rows.forEach((r, n) => {
+    const o = Object.fromEntries(head.map((h, i) => [h, r[i]]));
+    const v = Object.fromEntries(head.map((h, i) => [h, shown[n][i]]));
+    if (String(o.status).trim().toLowerCase() !== 'aprovado') return;
+    const data = ehData_(o.data) ? Utilities.formatDate(o.data, tz, 'yyyy-MM-dd') : String(o.data || '').trim();
+    const hora = ehData_(o.hora) ? String(v.hora).trim().slice(0, 5) : String(o.hora || '').trim();
+    out.push({
+      id: 'p' + n,
       nome: o.nome, cat: o.cat, local: o.local, area: o.area,
-      data: o.data instanceof Date ? Utilities.formatDate(o.data, tz, 'yyyy-MM-dd') : String(o.data || ''),
+      data: data,
       sem: o.sem === '' ? '' : o.sem,
-      hora: o.hora instanceof Date ? Utilities.formatDate(o.hora, tz, 'HH:mm') : String(o.hora || ''),
+      hora: hora,
       preco: o.preco, org: o.org, desc: o.desc, status: 'confirmado'
-    }));
+    });
+  });
   return ContentService.createTextOutput(JSON.stringify(out)).setMimeType(ContentService.MimeType.JSON);
 }
