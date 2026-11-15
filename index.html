@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agenda de Eventos de Maués</title>
+<style>
+:root{--g:#1f4d3a;--g2:#2f6b52;--r:#b3322a;--bg:#f6f3ec;--card:#fff;--ink:#1d2420;--mut:#66706a;--line:#e2ddd0;--y:#e9b949}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--g);color:#fff;padding:28px 20px 22px}
+.wrap{max-width:860px;margin:0 auto}
+h1{margin:0 0 4px;font-size:26px}
+header p{margin:0;opacity:.88}
+.badge{display:inline-block;background:var(--y);color:#3a2b00;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;margin-bottom:8px}
+nav{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
+nav button{background:rgba(255,255,255,.12);color:#fff;border:0;padding:8px 14px;border-radius:8px;font:inherit;cursor:pointer}
+nav button.on{background:#fff;color:var(--g);font-weight:700}
+main{padding:18px 20px 60px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+input,select,textarea{font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;width:100%;background:#fff}
+label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}
+.ev{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;display:flex;gap:14px}
+.date{min-width:62px;text-align:center;background:var(--bg);border-radius:10px;padding:6px 4px;align-self:flex-start}
+.date b{display:block;font-size:22px;line-height:1.1;color:var(--g)}
+.date span{font-size:12px;text-transform:uppercase;color:var(--mut)}
+.ev h3{margin:0 0 3px;font-size:17px}
+.meta{font-size:14px;color:var(--mut)}
+.tags{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;background:#e8efe9;color:var(--g)}
+.tag.warn{background:#fbe9c4;color:#6b4a00}
+.tag.free{background:#dcefe3}
+.tag.rec{background:#e4e9f7;color:#2a3d7a}
+.empty{text-align:center;color:var(--mut);padding:30px 0}
+.btn{background:var(--r);color:#fff;border:0;padding:11px 18px;border-radius:9px;font:inherit;font-weight:700;cursor:pointer}
+.btn.sec{background:#fff;color:var(--g);border:1px solid var(--g)}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:10px 0}
+.note{font-size:13px;color:var(--mut)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.ev{flex-direction:column;gap:8px}.date{display:flex;gap:6px;align-items:baseline;padding:4px 10px}}
+.ok{background:#dcefe3;border-radius:8px;padding:10px;margin-top:10px}
+h2{font-size:19px;margin:22px 0 4px}
+.mod{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.feat{background:linear-gradient(135deg,#fff7e0,#fff);border:2px solid var(--y);border-radius:12px;padding:14px 16px;margin:10px 0}
+.feat .lab{font-size:12px;font-weight:700;color:#7a5600;letter-spacing:.04em}
+.ev.ended{opacity:.6}
+.tag.end{background:#e6e6e6;color:#555}
+.post{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0}
+.post h3{margin:6px 0}
+.post .sp{background:#fbe9c4;color:#6b4a00;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px}
+.post .by{font-size:13px;color:var(--mut);margin-bottom:10px}
+.post h4{margin:16px 0 4px}
+.post p,.post li{margin:4px 0}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:20px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <span class="badge">VERSÃO DE TESTE · GRATUITA</span>
+  <h1>Agenda de Eventos de Maués</h1>
+  <p>Festas, esportes, eventos religiosos, beneficentes e culturais — da sede e das comunidades — num só lugar.</p>
+  <nav>
+    <button id="t-agenda" class="on">Próximos eventos</button>
+    <button id="t-blog">Blog</button>
+    <button id="t-ano">Calendário do ano</button>
+    <button id="t-novo">Cadastrar evento</button>
+  </nav>
+</div></header>
+<main><div class="wrap">
+
+<section id="v-agenda">
+  <div id="destaques"></div>
+  <div class="bar" id="f-per"></div>
+  <div class="bar" id="f-preco"></div>
+  <div class="bar" id="f-cat"></div>
+  <div class="bar" id="f-loc"></div>
+  <input id="q" placeholder="Buscar por nome, local ou organizador" style="margin:4px 0 8px">
+  <div id="list"></div>
+  <div class="box"><b>Organiza algum evento?</b> Cadastre grátis para que mais gente saiba.<br><br>
+    <button class="btn" id="go-novo">Cadastrar meu evento</button></div>
+</section>
+
+<section id="v-blog" hidden>
+  <h2>Blog</h2>
+  <p class="note">Reportagens e guias dos eventos de Maués. Conteúdo pago é sempre identificado como <b>Patrocinado</b> e separado do conteúdo editorial.</p>
+  <article class="post">
+    <span class="sp">PATROCINADO · MODELO DE EXEMPLO</span>
+    <h3>Festa do Guaraná 2026: o que já sabemos</h3>
+    <div class="by">Apresentado por: <i>[espaço disponível para patrocinador]</i> · 15 de novembro de 2026</div>
+    <p>A Festa do Guaraná acontece em Maués de <b>26 a 28 de novembro</b>. As atrações anunciadas até agora são Matheus e Kauan, Dilsinho e Ju Marques. A programação completa deve ser confirmada nos canais oficiais da organização.</p>
+    <h4>Antes da festa</h4>
+    <p>Nas semanas anteriores costumam ocorrer eventos pré-festa, como a apresentação das candidatas à Rainha do Guaraná. Datas e locais ainda não foram divulgados; assim que forem, entram na agenda.</p>
+    <h4>Como este espaço funciona</h4>
+    <ul><li>Matéria completa com programação, mapa, serviço e fotos.</li><li>Nome e contato do patrocinador em destaque, com a marca “Patrocinado”.</li><li>Ligação direta com o cartão do evento na agenda.</li></ul>
+    <p class="note">Este texto é um modelo de formato; não há patrocinador contratado.</p>
+  </article>
+  <article class="post">
+    <span class="tag">EDITORIAL</span>
+    <h3>Guia sazonal: eventos de Maués ao longo do ano</h3>
+    <p class="note">Em breve: um guia com os principais eventos de cada mês, na sede e nas comunidades. Quer contribuir? Cadastre seu evento na aba correspondente.</p>
+  </article>
+</section>
+
+<section id="v-ano" hidden>
+  <h2>Calendário do ano</h2>
+  <p class="note">Eventos tradicionais que se repetem a cada ano. Datas marcadas como “a confirmar” dependem de divulgação dos organizadores.</p>
+  <div id="ano"></div>
+</section>
+
+<section id="v-novo" hidden>
+  <h2>Cadastrar evento</h2>
+  <p class="note">Seu cadastro passa por uma conferência rápida antes de aparecer na agenda. O contato do organizador fica só com a equipe e não é exibido ao público.</p>
+  <div class="box">
+    <label>Nome do evento *</label><input id="n-nome">
+    <div class="grid">
+      <div><label>Categoria *</label><select id="n-cat"></select></div>
+      <div><label>Local (onde fica) *</label><input id="n-local" placeholder="Ex.: Quadra da escola, Comunidade X"></div>
+      <div><label>Área *</label><select id="n-area"><option>Sede</option><option>Zona rural</option></select></div>
+      <div><label>Quando acontece *</label><select id="n-tipo"><option value="data">Data única</option><option value="sem">Toda semana</option></select></div>
+      <div id="n-datawrap"><label>Data *</label><input type="date" id="n-data"></div>
+      <div id="n-diawrap" hidden><label>Dia da semana *</label><select id="n-dia"><option value="0">Domingo</option><option value="1">Segunda</option><option value="2">Terça</option><option value="3">Quarta</option><option value="4">Quinta</option><option value="5">Sexta</option><option value="6">Sábado</option></select></div>
+      <div><label>Horário</label><input type="time" id="n-hora"></div>
+      <div><label>Entrada</label><input id="n-preco" placeholder="Gratuita, R$ 10, a combinar…"></div>
+      <div><label>Organizador</label><input id="n-org"></div>
+      <div><label>Como soube da agenda?</label><select id="n-orig"><option value="">Selecione</option><option>WhatsApp</option><option>Instagram</option><option>Rádio</option><option>Cartaz</option><option>Indicação de alguém</option><option>Outro</option></select></div>
+    </div>
+    <label>Detalhes</label><textarea id="n-desc" rows="3"></textarea>
+    <label>Contato do organizador (WhatsApp) *</label><input id="n-cont" placeholder="(92) 9...">
+    <label style="font-weight:400"><input type="checkbox" id="n-aut" style="width:auto"> Autorizo a divulgação destas informações na agenda.</label>
+    <br><button class="btn" id="n-env">Enviar para conferência</button>
+    <div id="n-msg"></div>
+  </div>
+</section>
+
+
+
+</div></main>
+<footer>Agenda de Eventos de Maués · versão de teste · informações enviadas pelos próprios organizadores; confirme com eles antes de ir.</footer>
+
+<script>
+const CATS=["Festa do Guaraná","Cultural","Esporte","Religioso","Beneficente / comunitário"];
+const MESES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const DIAS=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+
+/* Eventos iniciais. status: "confirmado" ou "a confirmar" */
+let SEED=[];
+/* Calendário anual (tradicional; datas a confirmar a cada ano) */
+const ANO=[
+ {m:"Fevereiro",t:"Carnaval",d:"Desfiles e blocos; escolas de samba se preparam desde o segundo semestre."},
+ {m:"Novembro",t:"Festa do Guaraná",d:"Principal festa do município, com eventos pré-festa nas semanas anteriores."},
+ {m:"Dezembro",t:"Festa da padroeira — N. S. da Conceição (8/12)",d:"Programação religiosa e social na sede."},
+ {m:"Ao longo do ano",t:"Festas de santos e padroeiros",d:"Sede e comunidades da zona rural. Organizadores podem cadastrar a data de cada festa."},
+ {m:"Toda semana",t:"Futsal e futebol de campo",d:"Jogos e campeonatos recorrentes. Cadastre dia, horário e local."}
+];
+
+let EVENTS=[...SEED];let REMOTE=[];
+let per="proximos",cat="",loc="",q="",preco="",ended=false;
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const today=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
+const pd=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+
+function nextDate(e){
+  if(e.sem!==undefined&&e.sem!==""&&e.sem!==null){const t=today();const diff=(Number(e.sem)-t.getDay()+7)%7;const d=new Date(t);d.setDate(t.getDate()+diff);return d}
+  if(!e.data)return null;
+  const end=pd(e.fim||e.data);if(end<today())return ended?end:"past";
+  const st=pd(e.data);return st<today()?today():st;
+}
+function all(){return [...EVENTS,...REMOTE]}
+function visible(){
+  const t=today();const wkEnd=new Date(t);wkEnd.setDate(t.getDate()+((7-t.getDay())%7));
+  const mEnd=new Date(t);mEnd.setDate(t.getDate()+30);
+  return all().map(e=>({e,d:nextDate(e)})).filter(({e,d})=>{
+    if(d==="past")return false;
+    if(preco==="free"&&!/grat|livre|free/i.test(e.preco||""))return false;
+    if(preco==="paid"&&(!e.preco||/grat|livre|free/i.test(e.preco)))return false;
+    if(cat&&e.cat!==cat)return false;
+    if(loc&&e.area!==loc)return false;
+    if(q){const s=(e.nome+" "+e.local+" "+e.org).toLowerCase();if(!s.includes(q.toLowerCase()))return false}
+    if(per==="fim"){if(!d||d>wkEnd)return false}
+    if(per==="30"){if(!d||d>mEnd)return false}
+    return true;
+  }).sort((a,b)=>{
+    const ae=!!(a.d&&a.d<today()),be=!!(b.d&&b.d<today());if(ae!==be)return ae?1:-1;
+    const ax=a.d?a.d.getTime():9e15,bx=b.d?b.d.getTime():9e15;return ax-bx});
+}
+function card({e,d}){
+  const dt=d?`<div class="date"><b>${d.getDate()}</b><span>${MESES[d.getMonth()]}</span></div>`:`<div class="date"><b>—</b><span>a definir</span></div>`;
+  const rec=(e.sem!==undefined&&e.sem!==""&&e.sem!==null)?`<span class="tag rec">Toda ${DIAS[e.sem].toLowerCase()}</span>`:"";
+  const range=e.fim?` · até ${pd(e.fim).getDate()}/${pd(e.fim).getMonth()+1}`:"";
+  const free=/grat|livre|free/i.test(e.preco||"")?`<span class="tag free">Gratuito</span>`:(e.preco?`<span class="tag">${esc(e.preco)}</span>`:"");
+  const isEnd=d&&d<today();
+  return `<div class="ev ${isEnd?"ended":""}">${dt}<div><h3>${esc(e.nome)}</h3>
+  <div class="meta">${e.hora?esc(e.hora)+" · ":""}${esc(e.local)}${range}${e.org?" · "+esc(e.org):""}</div>
+  ${e.desc?`<div class="meta" style="margin-top:4px;color:var(--ink)">${esc(e.desc)}</div>`:""}
+  <div class="tags"><span class="tag">${esc(e.cat)}</span><span class="tag">${esc(e.area)}</span>${rec}${free}${isEnd?'<span class="tag end">Encerrado</span>':""}${e.status==="a confirmar"?'<span class="tag warn">Data/detalhes a confirmar</span>':""}</div></div></div>`;
+}
+function chips(el,opts,cur,fn){el.innerHTML=opts.map(([v,l])=>`<button class="chip ${v===cur?"on":""}" data-v="${v}">${l}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.onclick=()=>fn(b.dataset.v))}
+function render(){
+  chips($("f-per"),[["proximos","Todos"],["fim","Esta semana"],["30","Próximos 30 dias"]],per,v=>{per=v;render()});
+  chips($("f-cat"),[["","Todas as categorias"],...CATS.map(c=>[c,c])],cat,v=>{cat=v;render()});
+  chips($("f-loc"),[["","Sede e zona rural"],["Sede","Sede"],["Zona rural","Zona rural"]],loc,v=>{loc=v;render()});
+  chips($("f-preco"),[["","Gratuito ou pago"],["free","Gratuito"],["paid","Pago"],["ended",ended?"✓ Mostrando encerrados":"Mostrar encerrados"]],preco,v=>{if(v==="ended"){ended=!ended}else{preco=v}render()});
+  const dest=all().filter(e=>e.destaque&&nextDate(e)!=="past");
+  $("destaques").innerHTML=dest.map(e=>`<div class="feat"><span class="lab">★ EM DESTAQUE</span>${card({e,d:nextDate(e)}).replace('class="ev "','class="ev" style="border:0;background:transparent;padding:6px 0;margin:4px 0 0"')}</div>`).join("");
+  const l=visible();
+  $("list").innerHTML=l.length?l.map(card).join(""):`<div class="empty">Nenhum evento encontrado com esses filtros.</div>`;
+  $("ano").innerHTML=ANO.map(a=>`<div class="box"><span class="tag">${a.m}</span><h3 style="margin:6px 0 2px">${a.t}</h3><div class="meta">${a.d}</div></div>`).join("");
+}
+$("q").oninput=e=>{q=e.target.value;render()};
+
+function show(v){["agenda","blog","ano","novo"].forEach(x=>{$("v-"+x).hidden=x!==v;$("t-"+x).classList.toggle("on",x===v)});window.scrollTo(0,0)}
+["agenda","blog","ano","novo"].forEach(x=>$("t-"+x).onclick=()=>show(x));
+$("go-novo").onclick=()=>show("novo");
+$("n-cat").innerHTML=CATS.map(c=>`<option>${c}</option>`).join("");
+$("n-tipo").onchange=e=>{const s=e.target.value==="sem";$("n-datawrap").hidden=s;$("n-diawrap").hidden=!s};
+
+const CONFIG={
+  /* URL do Apps Script (doPost) que grava os cadastros na planilha. Vazio = envio manual por texto. */
+  FORM_ENDPOINT:"",
+  /* URL do Apps Script (doGet) que devolve os eventos aprovados em JSON. Vazio = só eventos.json. */
+  EVENTS_URL:""
+};
+$("n-env").onclick=async()=>{
+  const g=id=>$(id).value.trim();const sem=g("n-tipo")==="sem";
+  const ev={nome:g("n-nome"),cat:g("n-cat"),local:g("n-local"),area:g("n-area"),hora:g("n-hora"),preco:g("n-preco"),org:g("n-org"),desc:g("n-desc"),contato:g("n-cont"),origem:g("n-orig")};
+  if(sem)ev.sem=g("n-dia");else ev.data=g("n-data");
+  const m=$("n-msg");
+  if(!ev.nome||!ev.local||!ev.contato||(!sem&&!ev.data)||!$("n-aut").checked){m.innerHTML=`<div class="ok" style="background:#fbe9c4">Preencha os campos obrigatórios (*) e marque a autorização.</div>`;return}
+  if(CONFIG.FORM_ENDPOINT){
+    try{
+      await fetch(CONFIG.FORM_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(ev)});
+      m.innerHTML=`<div class="ok">Recebido! Seu evento aparecerá na agenda após a conferência.</div>`;
+      document.querySelectorAll("#v-novo input:not([type=checkbox]),#v-novo textarea").forEach(i=>i.value="");
+      return;
+    }catch(e){}
+  }
+  const txt=`Novo evento para a Agenda de Maués:\n${ev.nome}\nCategoria: ${ev.cat}\nOnde: ${ev.local} (${ev.area})\nQuando: ${sem?"toda "+DIAS[ev.sem].toLowerCase():ev.data} ${ev.hora}\nEntrada: ${ev.preco}\nOrganizador: ${ev.org}\nContato: ${ev.contato}\n${ev.desc}`;
+  m.innerHTML=`<div class="ok">O envio automático ainda não está ativo. Copie o texto abaixo e mande para o responsável pela agenda.<textarea rows="7" readonly>${esc(txt)}</textarea></div>`;
+};
+async function load(){
+  try{const r=await fetch("eventos.json",{cache:"no-store"});SEED=await r.json()}catch(e){$("list").innerHTML=`<div class="empty">Não foi possível carregar os eventos agora.</div>`}
+  EVENTS=[...SEED];
+  if(CONFIG.EVENTS_URL){try{const r=await fetch(CONFIG.EVENTS_URL);const j=await r.json();REMOTE=Array.isArray(j)?j:[]}catch(e){}}
+  render();
+}
+show("agenda");render();load();
+
+</script>
+</body>
+</html>

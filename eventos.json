@@ -1,0 +1,79 @@
+[
+ {
+  "id": "s1",
+  "destaque": true,
+  "nome": "Festa do Guaraná (44ª edição)",
+  "cat": "Festa do Guaraná",
+  "data": "2026-11-26",
+  "fim": "2026-11-28",
+  "local": "Sede — área da festa",
+  "area": "Sede",
+  "preco": "Consultar",
+  "org": "Prefeitura de Maués",
+  "desc": "Atrações anunciadas: Matheus e Kauan, Dilsinho e Ju Marques. Confirme a programação completa nos canais oficiais.",
+  "status": "confirmado"
+ },
+ {
+  "id": "s2",
+  "nome": "Baile das Rainhas 2026",
+  "cat": "Festa do Guaraná",
+  "data": "2026-11-21",
+  "hora": "A partir das 21h",
+  "local": "Ginásio Pe. Leão Martinelli",
+  "area": "Sede",
+  "preco": "",
+  "org": "Prefeitura de Maués",
+  "desc": "Noite de abertura do clima da 44ª Festa do Guaraná, para prestigiar as candidatas. Mesas por reserva: (92) 99533-6103 ou (92) 99234-3071. Valor não informado na divulgação.",
+  "status": "confirmado"
+ },
+ {
+  "id": "s6",
+  "nome": "Concurso Melhor Bastão de Guaraná 2026",
+  "cat": "Festa do Guaraná",
+  "data": "2026-11-26",
+  "fim": "2026-11-28",
+  "local": "Durante a Festa do Guaraná (local e dia a confirmar)",
+  "area": "Sede",
+  "org": "SEPROR, Prefeitura de Maués e IDAM",
+  "desc": "Premiação: 1º lugar R$ 3.000, 2º R$ 1.000 e 3º R$ 500. Inscrições no IDAM-Maués e na SEPROR, das 8h às 12h e das 14h às 17h. O prazo final não foi informado na divulgação.",
+  "status": "a confirmar"
+ },
+ {
+  "id": "s3",
+  "nome": "Esquina do Samba — arrecadação para o Carnaval 2027",
+  "cat": "Beneficente / comunitário",
+  "data": "",
+  "local": "Sede",
+  "area": "Sede",
+  "preco": "",
+  "org": "Agremiação (verde e branco)",
+  "desc": "Eventos de arrecadação da escola de samba para o Carnaval de 2027. Próxima data a confirmar com a agremiação.",
+  "status": "a confirmar"
+ },
+ {
+  "id": "s4",
+  "nome": "Festa de Nossa Senhora da Conceição (padroeira)",
+  "cat": "Religioso",
+  "data": "2026-12-08",
+  "local": "Igreja Matriz — Sede",
+  "area": "Sede",
+  "preco": "Gratuita",
+  "org": "Paróquia N. S. da Conceição",
+  "desc": "Data tradicional da festa da padroeira. Programação (novena, procissão, arraial) a confirmar com a paróquia.",
+  "status": "a confirmar"
+ },
+ {
+  "id": "s5",
+  "nome": "Carnaval 2027",
+  "cat": "Cultural",
+  "data": "2027-02-06",
+  "fim": "2027-02-09",
+  "local": "Sede",
+  "area": "Sede",
+  "preco": "A definir",
+  "org": "A confirmar",
+  "desc": "Período do Carnaval. Programação a divulgar.",
+  "status": "a confirmar"
+ }
+]
+
