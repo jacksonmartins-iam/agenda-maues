@@ -221,9 +221,9 @@ $("n-tipo").onchange=e=>{const s=e.target.value==="sem";$("n-datawrap").hidden=s
 
 const CONFIG={
   /* URL do Apps Script (doPost) que grava os cadastros na planilha. Vazio = envio manual por texto. */
-  FORM_ENDPOINT:"https://script.google.com/macros/s/AKfycbyadV5BZCZiUbWU0EYyMTsJAZ-ReKNH-jXK4BAa3XYNEmjTFWF7HEH0_VenFGnRUV-fEQ/exec",
+  FORM_ENDPOINT:"https://script.google.com/macros/s/AKfycbzcbLeLmEoH6E4ZGnIYacyphAM99f20Q2_80yYFOcizvakshY9E66IXdJPgFyKAWrRDig/exec",
   /* URL do Apps Script (doGet) que devolve os eventos aprovados em JSON. Vazio = só eventos.json. */
-  EVENTS_URL:"https://script.google.com/macros/s/AKfycbyadV5BZCZiUbWU0EYyMTsJAZ-ReKNH-jXK4BAa3XYNEmjTFWF7HEH0_VenFGnRUV-fEQ/exec"
+  EVENTS_URL:"https://script.google.com/macros/s/AKfycbzcbLeLmEoH6E4ZGnIYacyphAM99f20Q2_80yYFOcizvakshY9E66IXdJPgFyKAWrRDig/exec"
 };
 $("n-env").onclick=async()=>{
   const g=id=>$(id).value.trim();const sem=g("n-tipo")==="sem";
