@@ -204,9 +204,10 @@ function render(){
   chips($("f-cat"),[["","Todas as categorias"],...CATS.map(c=>[c,c])],cat,v=>{cat=v;render()});
   chips($("f-loc"),[["","Sede e zona rural"],["Sede","Sede"],["Zona rural","Zona rural"]],loc,v=>{loc=v;render()});
   chips($("f-preco"),[["","Gratuito ou pago"],["free","Gratuito"],["paid","Pago"],["ended",ended?"✓ Mostrando encerrados":"Mostrar encerrados"]],preco,v=>{if(v==="ended"){ended=!ended}else{preco=v}render()});
-  const dest=all().filter(e=>e.destaque&&nextDate(e)!=="past");
+  const semFiltro=per==="proximos"&&!cat&&!loc&&!q&&!preco&&!ended;
+  const dest=semFiltro?all().filter(e=>e.destaque&&nextDate(e)!=="past"):[];
   $("destaques").innerHTML=dest.map(e=>`<div class="feat"><span class="lab">★ EM DESTAQUE</span>${card({e,d:nextDate(e)}).replace('class="ev "','class="ev" style="border:0;background:transparent;padding:6px 0;margin:4px 0 0"')}</div>`).join("");
-  const l=visible();
+  const l=visible().filter(x=>!(semFiltro&&x.e.destaque));
   $("list").innerHTML=l.length?l.map(card).join(""):`<div class="empty">Nenhum evento encontrado com esses filtros.</div>`;
   $("ano").innerHTML=ANO.map(a=>`<div class="box"><span class="tag">${a.m}</span><h3 style="margin:6px 0 2px">${a.t}</h3><div class="meta">${a.d}</div></div>`).join("");
 }
