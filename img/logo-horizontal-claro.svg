@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-label="Agenda de Eventos de Maués">
+<g transform="translate(0 2) scale(1)"><path d="M128 244C128 244 40 164 40 100a88 88 0 1 1 176 0c0 64-88 144-88 144z" fill="#EDE0CE"/><circle cx="128" cy="100" r="64" fill="#1F4E3D"/>
+<path d="M70 100Q128 46 186 100Q128 154 70 100z" fill="#C82000"/>
+<path d="M128 36L141 100L115 100Z" fill="#EDE0CE" stroke="#1F4E3D" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M128 164L141 100L115 100Z" fill="#8FB3A0" stroke="#1F4E3D" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="128" cy="100" r="21" fill="#EDE0CE"/><circle cx="128" cy="100" r="12" fill="#120804"/><circle cx="123" cy="95" r="3.2" fill="#EDE0CE"/></g>
+<text x="285" y="112" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-weight="700" font-size="46" fill="#EDE0CE">Agenda de Eventos</text>
+<text x="283" y="190" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" font-weight="700" font-size="86" fill="#F5F2EC">de <tspan fill="#E8B93C">Maués</tspan></text>
+<text x="287" y="232" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" fill="#EDE0CE" opacity=".75">Tudo que acontece, num lugar só.</text></svg>
