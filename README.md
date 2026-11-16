@@ -1,4 +1,4 @@
-# Agenda de Eventos de Maués
+# Tá Rolando em Maués — agenda de eventos
 
 Agenda gratuita com os eventos de Maués (AM): festas, esportes, eventos religiosos, beneficentes e culturais, na sede e na zona rural.
 

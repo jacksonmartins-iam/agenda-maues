@@ -1,5 +1,5 @@
 /**
- * Backend gratuito da Agenda de Eventos de Maués (Google Apps Script).
+ * Backend gratuito da Tá Rolando em Maués (Google Apps Script).
  * - doPost: recebe o cadastro do formulário da página e grava na primeira aba da planilha (status "pendente").
  * - doGet: devolve em JSON apenas as linhas com status "aprovado", SEM o contato do organizador.
  * Moderação: na planilha, troque o status de "pendente" para "aprovado".
