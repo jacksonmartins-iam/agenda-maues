@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agenda de Eventos de Maués</title>
 <style>
-:root{--g:#1f4d3a;--g2:#2f6b52;--r:#b3322a;--bg:#f6f3ec;--card:#fff;--ink:#1d2420;--mut:#66706a;--line:#e2ddd0;--y:#e9b949}
+:root{--g:#1f4e3d;--g2:#2f6b52;--r:#c82000;--bg:#f5f2ec;--card:#fff;--ink:#1f1f1e;--mut:#5c6760;--line:#e2ddd0;--y:#e8b93c;--cq:#ede0ce}
 *{box-sizing:border-box}
 body{margin:0;font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:var(--g);color:#fff;padding:28px 20px 22px}
@@ -23,7 +23,7 @@ main{padding:18px 20px 60px}
 input,select,textarea{font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;width:100%;background:#fff}
 label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}
 .ev{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;display:flex;gap:14px}
-.date{min-width:62px;text-align:center;background:var(--bg);border-radius:10px;padding:6px 4px;align-self:flex-start}
+.date{min-width:62px;text-align:center;background:var(--cq);border-radius:10px;padding:6px 4px;align-self:flex-start}
 .date b{display:block;font-size:22px;line-height:1.1;color:var(--g)}
 .date span{font-size:12px;text-transform:uppercase;color:var(--mut)}
 .ev h3{margin:0 0 3px;font-size:17px}
@@ -43,7 +43,7 @@ label{display:block;font-size:14px;font-weight:600;margin:12px 0 4px}
 .ok{background:#dcefe3;border-radius:8px;padding:10px;margin-top:10px}
 h2{font-size:19px;margin:22px 0 4px}
 .mod{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.feat{background:linear-gradient(135deg,#fff7e0,#fff);border:2px solid var(--y);border-radius:12px;padding:14px 16px;margin:10px 0}
+.feat{background:var(--cq);border:2px solid var(--y);border-radius:12px;padding:14px 16px;margin:10px 0}
 .feat .lab{font-size:12px;font-weight:700;color:#7a5600;letter-spacing:.04em}
 .ev.ended{opacity:.6}
 .tag.end{background:#e6e6e6;color:#555}
@@ -53,7 +53,8 @@ h2{font-size:19px;margin:22px 0 4px}
 .post .by{font-size:13px;color:var(--mut);margin-bottom:10px}
 .post h4{margin:16px 0 4px}
 .post p,.post li{margin:4px 0}
-footer{text-align:center;font-size:12px;color:var(--mut);padding:20px}
+footer{text-align:center;font-size:12px;color:var(--cq);background:var(--ink);padding:16px 20px;margin-top:20px}
+.tag.c{color:#fff;font-weight:600}
 </style>
 </head>
 <body>
@@ -140,6 +141,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);padding:20px}
 <footer>Agenda de Eventos de Maués · versão de teste · informações enviadas pelos próprios organizadores; confirme com eles antes de ir.</footer>
 
 <script>
+const CATCOR={"Festa do Guaraná":"#c82000","Cultural":"#6b4e9b","Esporte":"#1f6fb2","Religioso":"#8a5a1f","Escolar":"#9c3b6b","Beneficente / comunitário":"#2e7d6b"};
 const CATS=["Festa do Guaraná","Cultural","Esporte","Religioso","Escolar","Beneficente / comunitário"];
 const MESES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const DIAS=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
@@ -196,7 +198,7 @@ function card({e,d}){
   return `<div class="ev ${isEnd?"ended":""}">${dt}<div><h3>${esc(e.nome)}</h3>
   <div class="meta">${e.hora?esc(e.hora)+" · ":""}${esc(e.local)}${range}${e.org?" · "+esc(e.org):""}</div>
   ${e.desc?`<div class="meta" style="margin-top:4px;color:var(--ink)">${esc(e.desc)}</div>`:""}
-  <div class="tags"><span class="tag">${esc(e.cat)}</span><span class="tag">${esc(e.area)}</span>${rec}${free}${isEnd?'<span class="tag end">Encerrado</span>':""}${e.status==="a confirmar"?'<span class="tag warn">Data/detalhes a confirmar</span>':""}</div></div></div>`;
+  <div class="tags"><span class="tag c" style="background:${CATCOR[e.cat]||'#1f4e3d'}">${esc(e.cat)}</span><span class="tag">${esc(e.area)}</span>${rec}${free}${isEnd?'<span class="tag end">Encerrado</span>':""}${e.status==="a confirmar"?'<span class="tag warn">Data/detalhes a confirmar</span>':""}</div></div></div>`;
 }
 function chips(el,opts,cur,fn){el.innerHTML=opts.map(([v,l])=>`<button class="chip ${v===cur?"on":""}" data-v="${v}">${l}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.onclick=()=>fn(b.dataset.v))}
 function render(){
