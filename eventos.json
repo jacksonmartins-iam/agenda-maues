@@ -46,8 +46,8 @@
   "local": "Sede",
   "area": "Sede",
   "preco": "",
-  "org": "Agremiação (verde e branco)",
-  "desc": "Eventos de arrecadação da escola de samba para o Carnaval de 2027. Próxima data a confirmar com a agremiação.",
+  "org": "G.R.E.S. Em Cima da Hora",
+  "desc": "Eventos de arrecadação e lançamentos da escola de samba rumo ao Carnaval de 2027. Próxima data a confirmar com a agremiação (Instagram: G.R.E.S. Em Cima da Hora).",
   "status": "a confirmar"
  },
  {
@@ -74,6 +74,18 @@
   "org": "A confirmar",
   "desc": "Período do Carnaval. Programação a divulgar.",
   "status": "a confirmar"
+ },
+ {
+  "id": "s7",
+  "nome": "Lançamento do Enredo 2027 — G.R.E.S. Em Cima da Hora",
+  "cat": "Cultural",
+  "data": "2026-11-14",
+  "hora": "20:00",
+  "local": "Esquina do Samba",
+  "area": "Sede",
+  "preco": "Mesas R$ 30,00",
+  "org": "G.R.E.S. Em Cima da Hora",
+  "desc": "Lançamento do enredo 2027 com Bateria Pura Cadência, rainha de bateria, intérpretes oficiais, 2º casal de mestre-sala e porta-bandeira e grupo Pagodez. Apresentação do novo casal de mestre-sala e porta-bandeira e lançamento do projeto contemplado pela Aliança Guaraná de Maués. Mesas: (92) 99358-9195 (Janilza Paz).",
+  "status": "confirmado"
  }
 ]
-
