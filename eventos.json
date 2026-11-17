@@ -101,5 +101,18 @@
   "org": "ASCOM e SECTUR — Prefeitura de Maués",
   "desc": "Inscrições abertas para jornalistas, radialistas, repórteres, fotógrafos, cinegrafistas e influenciadores digitais que vão cobrir a 44ª Festa do Guaraná. Mais informações: (92) 98133-3176.",
   "status": "confirmado"
+ },
+ {
+  "id": "s9",
+  "nome": "Rainha do Guaraná da Melhor Idade 2026",
+  "cat": "Festa do Guaraná",
+  "data": "2026-11-24",
+  "hora": "19:30",
+  "local": "Quadra da Escola Municipal Livro Aberto",
+  "area": "Sede",
+  "preco": "",
+  "org": "SEMAS · Prefeitura de Maués",
+  "desc": "Baile da Rainha do Guaraná da Melhor Idade: uma noite especial de valorização da pessoa idosa, com beleza, elegância, encanto e alegria, celebrando a história e a autoestima. Valor não informado na divulgação.",
+  "status": "confirmado"
  }
 ]
