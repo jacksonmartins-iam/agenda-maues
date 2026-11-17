@@ -258,8 +258,15 @@ $("n-env").onclick=async()=>{
 async function load(){
   try{const r=await fetch("eventos.json",{cache:"no-store"});SEED=await r.json()}catch(e){$("list").innerHTML=`<div class="empty">Não foi possível carregar os eventos agora.</div>`}
   EVENTS=[...SEED];
-  if(CONFIG.EVENTS_URL){try{const r=await fetch(CONFIG.EVENTS_URL);const j=await r.json();REMOTE=Array.isArray(j)?j:[]}catch(e){}}
+  try{const c=JSON.parse(localStorage.getItem("tr_remoto")||"[]");if(Array.isArray(c))REMOTE=c}catch(e){}
   render();
+  if(CONFIG.EVENTS_URL){
+    for(let i=0;i<3;i++){
+      try{const r=await fetch(CONFIG.EVENTS_URL,{cache:"no-store"});const j=await r.json();
+        if(Array.isArray(j)){REMOTE=j;try{localStorage.setItem("tr_remoto",JSON.stringify(j))}catch(e){}render();break}}catch(e){}
+      await new Promise(f=>setTimeout(f,1500*(i+1)));
+    }
+  }
 }
 show("agenda");render();load();
 
