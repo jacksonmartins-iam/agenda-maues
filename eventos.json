@@ -11,7 +11,8 @@
   "preco": "Consultar",
   "org": "Prefeitura de Maués",
   "desc": "Atrações anunciadas: Matheus e Kauan, Dilsinho e Ju Marques. Confirme a programação completa nos canais oficiais.",
-  "status": "confirmado"
+  "status": "confirmado",
+  "alta": true
  },
  {
   "id": "s2",
@@ -24,7 +25,8 @@
   "preco": "",
   "org": "Prefeitura de Maués",
   "desc": "Noite de abertura do clima da 44ª Festa do Guaraná, para prestigiar as candidatas. Mesas por reserva: (92) 99533-6103 ou (92) 99234-3071. Valor não informado na divulgação.",
-  "status": "confirmado"
+  "status": "confirmado",
+  "alta": true
  },
  {
   "id": "s6",
@@ -73,7 +75,8 @@
   "preco": "A definir",
   "org": "A confirmar",
   "desc": "Período do Carnaval. Programação a divulgar.",
-  "status": "a confirmar"
+  "status": "a confirmar",
+  "alta": true
  },
  {
   "id": "s7",
