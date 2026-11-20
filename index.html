@@ -130,6 +130,7 @@ nav button.ano{background:rgba(255,255,255,.2);font-weight:600}
   .date{min-width:52px}.date b{font-size:21px}
   .feat .date{min-width:60px}.feat .date b{font-size:26px}.feat .ev h3{font-size:19px}
   .fab{display:block}
+  nav button.cta{display:none}
   .btn{min-height:44px}
 }
 .ev.acc{cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -337,7 +338,7 @@ function render(){
 document.addEventListener("click",ev=>{const c=ev.target.closest&&ev.target.closest(".ev.acc");if(!c||ev.target.closest("a"))return;if(String(getSelection()).length)return;const o=c.classList.toggle("open");const h=c.querySelector(".hd");if(h)h.setAttribute("aria-expanded",o);ACC.set(c.dataset.k,o)});
 $("q").oninput=e=>{q=e.target.value;render()};
 
-function show(v){["agenda","blog","ano","novo"].forEach(x=>{$("v-"+x).hidden=x!==v;$("t-"+x).classList.toggle("on",x===v)});$("fab").hidden=v!=="agenda";window.scrollTo(0,0)}
+function show(v){["agenda","blog","ano","novo"].forEach(x=>{$("v-"+x).hidden=x!==v;$("t-"+x).classList.toggle("on",x===v)});$("fab").hidden=v==="novo";window.scrollTo(0,0)}
 ["agenda","blog","ano","novo"].forEach(x=>$("t-"+x).onclick=()=>show(x));
 $("go-novo").onclick=()=>show("novo");$("fab").onclick=()=>show("novo");
 $("n-cat").innerHTML=CATS.map(c=>`<option>${c}</option>`).join("");
