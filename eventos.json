@@ -117,5 +117,18 @@
   "org": "SEMAS · Prefeitura de Maués",
   "desc": "Baile da Rainha do Guaraná da Melhor Idade: uma noite especial de valorização da pessoa idosa, com beleza, elegância, encanto e alegria, celebrando a história e a autoestima. Valor não informado na divulgação.",
   "status": "confirmado"
+ },
+ {
+  "id": "s10",
+  "nome": "Feira de Ciências Guaraná de Maués",
+  "cat": "Escolar",
+  "data": "2026-11-25",
+  "hora": "17:00",
+  "local": "Lagoa da Maresia",
+  "area": "Sede",
+  "preco": "",
+  "org": "SEMED · Prefeitura de Maués",
+  "desc": "Feira de Ciências da rede municipal de ensino, com o tema \"Maués: Saberes, território e o Guaraná que nos identifica\". Projetos, pesquisas e descobertas dos estudantes, num encontro de criatividade e conhecimento.",
+  "status": "confirmado"
  }
 ]
