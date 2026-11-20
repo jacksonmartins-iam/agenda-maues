@@ -114,6 +114,8 @@ nav button.ano{background:rgba(255,255,255,.2);font-weight:600}
 .ac span.c{font-size:12px;opacity:.95}
 .fab{display:none;position:fixed;right:14px;bottom:14px;z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.3);border-radius:99px;padding:13px 20px}
 .fab[hidden]{display:none!important}
+.fab{transition:transform .25s ease,opacity .25s ease;padding:12px 18px;font-size:15px}
+.fab.away{transform:translateY(90px);opacity:0;pointer-events:none}
 @media(max-width:700px){
   main{padding:14px 14px 90px}
   header{padding:22px 14px 18px}
@@ -340,6 +342,7 @@ $("q").oninput=e=>{q=e.target.value;render()};
 
 function show(v){["agenda","blog","ano","novo"].forEach(x=>{$("v-"+x).hidden=x!==v;$("t-"+x).classList.toggle("on",x===v)});$("fab").hidden=v==="novo";window.scrollTo(0,0)}
 ["agenda","blog","ano","novo"].forEach(x=>$("t-"+x).onclick=()=>show(x));
+let fabT;addEventListener("scroll",()=>{const f=$("fab");f.classList.add("away");clearTimeout(fabT);fabT=setTimeout(()=>f.classList.remove("away"),700)},{passive:true});
 $("go-novo").onclick=()=>show("novo");$("fab").onclick=()=>show("novo");
 $("n-cat").innerHTML=CATS.map(c=>`<option>${c}</option>`).join("");
 $("n-tipo").onchange=e=>{const s=e.target.value==="sem";$("n-datawrap").hidden=s;$("n-diawrap").hidden=!s};
