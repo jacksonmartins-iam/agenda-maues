@@ -12,7 +12,8 @@
   "org": "Prefeitura de Maués",
   "desc": "Atrações anunciadas: Matheus e Kauan, Dilsinho e Ju Marques. Confirme a programação completa nos canais oficiais.",
   "status": "confirmado",
-  "alta": true
+  "alta": true,
+  "img": "img/alta-festa-do-guarana.jpg"
  },
  {
   "id": "s2",
