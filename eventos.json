@@ -26,7 +26,8 @@
   "org": "Prefeitura de Maués",
   "desc": "Noite de abertura do clima da 44ª Festa do Guaraná, para prestigiar as candidatas. Mesas por reserva: (92) 99533-6103 ou (92) 99234-3071. Valor não informado na divulgação.",
   "status": "confirmado",
-  "alta": true
+  "alta": true,
+  "img": "img/alta-baile-das-rainhas.jpg"
  },
  {
   "id": "s6",
@@ -130,6 +131,7 @@
   "org": "SEMED · Prefeitura de Maués",
   "desc": "Feira de Ciências da rede municipal de ensino, com o tema \"Maués: Saberes, território e o Guaraná que nos identifica\". Projetos, pesquisas e descobertas dos estudantes, num encontro de criatividade e conhecimento.",
   "status": "confirmado",
-  "alta": true
+  "alta": true,
+  "img": "img/alta-feira-ciencias.jpg"
  }
 ]

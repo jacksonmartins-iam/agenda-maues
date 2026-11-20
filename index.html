@@ -315,7 +315,7 @@ function card({e,d},isFeat){
 function chips(el,opts,cur,fn){const on=v=>Array.isArray(cur)?cur.includes(v):v===cur;el.innerHTML=opts.map(([v,l,x])=>`<button class="chip ${x||""} ${on(v)?"on":""}" data-v="${esc(v)}">${l}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.onclick=()=>fn(b.dataset.v))}
 const PRIN=CATS.slice(0,5),EXTRA=CATS.slice(5);let mais=false;
 function bgAlta(e,cor){
-  if(e.img&&/^img\/[\w\-.\/]+$/.test(e.img))return `background-image:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.6)),url('${e.img}')`;
+  if(e.img&&/^img\/[\w\-.\/]+$/.test(e.img))return `background-image:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.72) 100%),url('${e.img}')`;
   return `background-image:linear-gradient(135deg,${cor},${cor}cc 55%,#1f4e3d)`;
 }
 function render(){
