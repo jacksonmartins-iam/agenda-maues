@@ -132,6 +132,18 @@ nav button.ano{background:rgba(255,255,255,.2);font-weight:600}
   .fab{display:block}
   .btn{min-height:44px}
 }
+.ev.acc{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ev .bd{flex:1;min-width:0}
+.ev h3{margin:0 0 3px}
+.hd{all:unset;box-sizing:border-box;display:flex;width:100%;justify-content:space-between;align-items:flex-start;gap:8px;cursor:pointer;font-size:inherit;font-weight:inherit;line-height:inherit;color:inherit}
+.hd:focus-visible{outline:2px solid var(--g);outline-offset:2px;border-radius:6px}
+.chev{flex:none;width:9px;height:9px;margin:7px 4px 0 0;border-right:2.5px solid var(--g);border-bottom:2.5px solid var(--g);transform:rotate(45deg);transition:transform .2s}
+.ev.open .chev{transform:rotate(-135deg);margin-top:11px}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.ev.open .det{display:block}
+.det .org{font-size:14px;color:var(--mut);margin:0 0 4px}
+.det .org b{color:var(--ink)}
+.det .desc{margin-top:6px}
 </style>
 </head>
 <body>
@@ -277,22 +289,25 @@ function visible(){
     const ae=!!(a.d&&a.d<today()),be=!!(b.d&&b.d<today());if(ae!==be)return ae?1:-1;
     const ax=a.d?a.d.getTime():9e15,bx=b.d?b.d.getTime():9e15;return ax-bx});
 }
-function card({e,d}){
+const ACC=new Map();
+function card({e,d},isFeat){
   const cor=CATCOR[e.cat]||"#1f4e3d";
+  const key=e.id||e.nome;
+  const open=ACC.has(key)?ACC.get(key):!!isFeat;
   const dt=d?`<div class="date"><b>${d.getDate()}</b><span>${MESES[d.getMonth()]}</span></div>`:`<div class="date"><b>—</b><span>a definir</span></div>`;
   const rec=(e.sem!==undefined&&e.sem!==""&&e.sem!==null)?`<span class="tag rec">Toda ${DIAS[e.sem].toLowerCase()}</span>`:"";
   const range=e.fim?` · até ${pd(e.fim).getDate()}/${pd(e.fim).getMonth()+1}`:"";
-  const free=/grat|livre|free/i.test(e.preco||"")?`<span class="tag free">Gratuito</span>`:(e.preco?`<span class="tag">${esc(e.preco)}</span>`:"");
+  const isFree=/grat|livre|free/i.test(e.preco||"");
+  const free=isFree?`<span class="tag free">Gratuito</span>`:"";
   const isEnd=d&&d<today();
   const aconf=e.status==="a confirmar";
   const ver=aconf?'<span class="tag warn">Data/detalhes a confirmar</span>':'<span class="tag ver" title="Conferido pela equipe do Tá Rolando">✓ Conferido</span>';
-  const long=(e.desc||"").length>110;
-  const desc=e.desc?`<div class="desc${long?" clamp":""}">${esc(e.desc)}</div>${long?'<button class="more" type="button">Ver mais</button>':""}`:"";
-  return `<div class="ev ${isEnd?"ended":""}" style="--c:${cor}">${dt}<div><h3>${esc(e.nome)}</h3>
+  const det=[e.org?`<div class="org"><b>Organização:</b> ${esc(e.org)}</div>`:"",(e.preco&&!isFree)?`<div class="org"><b>Entrada:</b> ${esc(e.preco)}</div>`:"",e.desc?`<div class="desc">${esc(e.desc)}</div>`:""].join("");
+  const id="d-"+String(key).replace(/[^\w]/g,"");
+  return `<div class="ev acc ${open?"open":""} ${isEnd?"ended":""}" style="--c:${cor}" data-k="${esc(key)}">${dt}<div class="bd"><h3><button type="button" class="hd" aria-expanded="${open}" aria-controls="${id}"><span>${esc(e.nome)}</span><i class="chev" aria-hidden="true"></i></button></h3>
   <div class="meta">${e.hora?`<span class="hr">${esc(e.hora)}</span> · `:""}${esc(e.local)}${range}</div>
-  ${e.org?`<div class="org">${esc(e.org)}</div>`:""}
-  ${desc}
-  <div class="tags"><span class="tag c" style="background:${cor}">${esc(e.cat)}</span><span class="tag">${esc(e.area)}</span>${rec}${free}${isEnd?'<span class="tag end">Encerrado</span>':""}${ver}</div></div></div>`;
+  <div class="tags"><span class="tag c" style="background:${cor}">${esc(e.cat)}</span><span class="tag">${esc(e.area)}</span>${rec}${free}${isEnd?'<span class="tag end">Encerrado</span>':""}${ver}</div>
+  ${det?`<div class="det" id="${id}">${det}</div>`:""}</div></div>`;
 }
 function chips(el,opts,cur,fn){const on=v=>Array.isArray(cur)?cur.includes(v):v===cur;el.innerHTML=opts.map(([v,l,x])=>`<button class="chip ${x||""} ${on(v)?"on":""}" data-v="${esc(v)}">${l}</button>`).join("");el.querySelectorAll("button").forEach(b=>b.onclick=()=>fn(b.dataset.v))}
 const PRIN=CATS.slice(0,5),EXTRA=CATS.slice(5);let mais=false;
@@ -310,16 +325,16 @@ function render(){
   chips($("f-preco"),[["","Gratuito ou pago"],["free","Gratuito"],["paid","Pago"],["ended",ended?"✓ Mostrando encerrados":"Mostrar encerrados"]],preco,v=>{if(v==="ended"){ended=!ended}else{preco=v}render()});
   const semFiltro=per==="proximos"&&!cat&&!loc&&!q&&!preco&&!ended;
   const dest=semFiltro?all().filter(e=>e.destaque&&nextDate(e)!=="past"):[];
-  $("destaques").innerHTML=dest.map(e=>`<div class="feat"><span class="lab">★ EM DESTAQUE</span>${card({e,d:nextDate(e)})}</div>`).join("");
+  $("destaques").innerHTML=dest.map(e=>`<div class="feat"><span class="lab">★ EM DESTAQUE</span>${card({e,d:nextDate(e)},true)}</div>`).join("");
   const l=visible().filter(x=>!(semFiltro&&x.e.destaque));
   $("cnt").innerHTML=`<span>${l.length} evento${l.length===1?"":"s"}${semFiltro?"":" encontrado"+(l.length===1?"":"s")}</span>${semFiltro?"":'<button type="button" id="limpar">Limpar filtros</button>'}`;
   if(!semFiltro)$("limpar").onclick=()=>{per="proximos";cat="";loc="";preco="";q="";ended=false;$("q").value="";render()};
-  $("list").innerHTML=l.length?l.map(card).join(""):`<div class="empty">Nenhum evento encontrado com esses filtros.</div>`;
+  $("list").innerHTML=l.length?l.map(x=>card(x,false)).join(""):`<div class="empty">Nenhum evento encontrado com esses filtros.</div>`;
   const alta=semFiltro?all().filter(e=>e.alta&&nextDate(e)!=="past").map(e=>({e,d:nextDate(e)})).sort((a,b)=>a.d-b.d):[];
   $("alta").innerHTML=alta.length?`<div class="alta-h"><h2>🔥 Em alta na agenda</h2><a href="#list" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'});return false">Ver todos →</a></div><div class="alta">${alta.map(({e,d})=>{const cor=CATCOR[e.cat]||"#1f4e3d";return `<div class="ac" style="${bgAlta(e,cor)}"><span class="dd">${d.getDate()} ${MESES[d.getMonth()].toUpperCase()}</span><div><b>${esc(e.nome)}</b><br><span class="c">${esc(e.cat)}</span></div></div>`}).join("")}</div>`:"";
   $("ano").innerHTML=ANO.map(a=>`<div class="box"><span class="tag">${a.m}</span><h3 style="margin:6px 0 2px">${a.t}</h3><div class="meta">${a.d}</div></div>`).join("");
 }
-document.addEventListener("click",ev=>{const b=ev.target.closest&&ev.target.closest(".more");if(!b)return;const d=b.previousElementSibling;const c=d.classList.toggle("clamp");b.textContent=c?"Ver mais":"Ver menos"});
+document.addEventListener("click",ev=>{const c=ev.target.closest&&ev.target.closest(".ev.acc");if(!c||ev.target.closest("a"))return;if(String(getSelection()).length)return;const o=c.classList.toggle("open");const h=c.querySelector(".hd");if(h)h.setAttribute("aria-expanded",o);ACC.set(c.dataset.k,o)});
 $("q").oninput=e=>{q=e.target.value;render()};
 
 function show(v){["agenda","blog","ano","novo"].forEach(x=>{$("v-"+x).hidden=x!==v;$("t-"+x).classList.toggle("on",x===v)});$("fab").hidden=v!=="agenda";window.scrollTo(0,0)}
